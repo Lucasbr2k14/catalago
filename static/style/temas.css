@@ -1,0 +1,16 @@
+.ligth {
+    --cor-0: #ffffff;
+    --cor-1: #f00065;
+    --cor-2: #fa9f43;
+    --cor-4: #262324;
+    --cor-5: #b3dbc8;
+
+
+    --background-1: var(--cor-0);
+    --background-2: var(--cor-4);
+    --background-3: var(--cor-5);
+    --letra-1: var(--cor-4);
+    --letra-2: var(--cor-0);
+}
+
+.dark {}

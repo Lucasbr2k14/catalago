@@ -1,0 +1,116 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: var(--background-1);
+    font-family: sans-serif;
+}
+
+header {
+    background-color: var(--background-2);
+    color: var(--letra-2);
+    padding: 10px;
+    height: max(5vh, 30px);
+}
+
+main {
+    min-height: calc(100vh - 137px);
+}
+
+.pesquisa {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.pesquisa input {
+    width: max(15vw, 150px);
+    height: 30px;
+
+    font-size: 15px;
+}
+
+.res {
+    display: flex;
+    justify-content: center;
+}
+
+.produtos {
+    width: 70%;
+    gap: 10px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.produto {
+    background-color: var(--background-3);
+    padding: 10px;
+    color: var(--letra-1);
+    width: calc(50% - 5px);
+    max-width: 300px;
+    min-width: 250px;
+    height: fit-content;
+    border-radius: 5px;
+}
+
+.produto h3 {
+    text-align: center;
+}
+
+.produto img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+
+.seta {
+    font-size: 20px;
+}
+
+.items {
+    width: 100%;
+    padding: 1px;
+    border-color: var();
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+.produto table {
+    display: none;
+    width: 100%;
+}
+
+.produto th, td {
+    width: 25%;
+    text-align: center;
+    border: 1px solid var(--cor-4);
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.items:hover {
+    border-color: var(--cor-4);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+.produto p:hover{
+    color: var(--cor-4);
+    cursor: pointer;
+}
+.total {
+    font: bold;
+    color: var(--letra-1);
+}
+
+.preco {
+    font-weight: bold;
+}
