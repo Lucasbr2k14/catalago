@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  catalago:
+    buid: .
+
+    enviroments:
+      - POSTGRESS_HOST = 127.0.0.1
+      - POSTGRESS_PORT = 5432
+      - POSTGRESS_USER = floricultura
+      - POSTGRESS_PASSWORD = FloriDev
+      - POSTGRESS_DB_NAME = catalago
