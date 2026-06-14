@@ -5,14 +5,19 @@
 
 - [ ] Fazer administrador administrar
 - [ ] Usuário
-    - [ ] Criar produto
-        - Nome
-        - Foto (Upload)
-        - Preço
-        - 
-    - [ ] Remover produto
+    - [ ] Produto
+        - [ ] Criar
+        - [ ] Editar
+        - [ ] Excluir
+    - [ ] Composição
+        - [ ] Criar
+        - [ ] Editar
+        - [ ] Excluir
+
+
 
 ## Front end
 - [ ] Fazer tela de login
 - [ ] Fazer tela de administrador
 - [ ] Fazer tela de usuario
+- [ ] Fazer tela de produtos
