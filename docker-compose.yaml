@@ -5,8 +5,14 @@ services:
     buid: .
 
     enviroments:
-      - POSTGRESS_HOST = 127.0.0.1
-      - POSTGRESS_PORT = 5432
-      - POSTGRESS_USER = floricultura
-      - POSTGRESS_PASSWORD = FloriDev
-      - POSTGRESS_DB_NAME = catalago
+      # Configurações do Postgress
+      - POSTGRESS_HOST = 127.0.0.1           
+      - POSTGRESS_PORT = 5432                
+      - POSTGRESS_USER = floricultura        
+      - POSTGRESS_PASSWORD = floricultura123 # EM DESENVOLVIMENTO
+      - POSTGRESS_DB_NAME = floricultura
+      # Configurações do gunicorn
+      - HOST = 0.0.0.0
+      - PORT = 8000
+      - WORKERS = 4
+      - TIMEOUT = 5

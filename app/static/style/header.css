@@ -1,0 +1,6 @@
+header {
+    background-color: var(--background-2);
+    color: var(--letra-2);
+    padding: 10px;
+    height: max(5vh, 30px);
+}

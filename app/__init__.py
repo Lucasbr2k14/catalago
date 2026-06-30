@@ -1,15 +1,15 @@
-from flask import Flask, render_template
+from flask import Flask, Blueprint, render_template, g
+from .routes import index_blueprint
+from .database import DataBase
+
+
 import json
 
-app = Flask(
-    __name__
-)
+def create_app() -> Flask:
+    app = Flask(__name__)
 
-@app.route("/")
-def index():
-    produtos:list | None = None 
+    app.db = DataBase()
 
-    with open('flores.json', 'r') as f:
-        produtos = json.load(f)
-        
-    return render_template("index.html", produtos=produtos)
+    app.register_blueprint(index_blueprint)
+
+    return app

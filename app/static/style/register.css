@@ -1,0 +1,28 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: var(--background-1);
+    font-family: sans-serif;
+}
+
+
+main {
+    min-height: calc(100vh - 141px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    background-color: var(--background-3);
+    width: min(25%, 250px);
+    padding: 10px;
+}
+
+input {
+    align-self: center;
+    size: 100%;
+}

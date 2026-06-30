@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/register.css') }} ">
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/header.css') }} ">
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/temas.css') }} ">
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/footer.css') }} ">
+
+    <script defer src=" {{url_for('static', filename='js/register.js')}} "></script>
+
+    <title>Registar</title>
+</head>
+<body class="ligth">
+    {%  include "header.html" %}
+
+    <main>
+        <form for="/register" method="POST">
+            <label for="nome">Nome completo: </label>
+            </br>
+            <input type="text" for="name" id="name" name="name" required>
+            </br>
+            <label>Nome de usuário:</label>
+            </br>
+            <input type = "text" for="user_name" id="user_name" name="user_name" required>
+            </br>
+            <label for="email">Email:</label>
+            </br>
+            <input type="email" for="email" id="email" name="email" required>
+            </br>
+            <label for="password">Senha: </label>
+            </br>
+            <input type="password" for="password" id="password" name="password" required>
+            </br>
+            <label for="birth">Data de nascimento:</label>
+            </br>
+            <input type="date" for="nascimento" id="nascimento" name="nascimento" required>
+            </br>
+            <label for="cpf">Cpf: </label>
+            </br>
+            <input type="text" for="cpf" id="cpf" name="cpf" required>
+            </br>
+            <button type="submit"> Cadastrar </button>
+        </form>
+    </main>
+
+    {% include "footer.html" %}
+</body>
+</html>

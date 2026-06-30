@@ -1,3 +1,5 @@
 __pycache__
 *.jpg
 flores.json
+.env
+teste.py

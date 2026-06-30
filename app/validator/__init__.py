@@ -1,0 +1,78 @@
+from datetime import datetime
+
+class Validator:
+    @staticmethod
+    def register_user(
+        name:str,
+        user_name:str,
+        email:str,
+        password:str,
+        nascimento:str
+    ):
+        
+        errs = []
+
+        if not name:
+            errs.append("name")
+        if not user_name:
+            errs.append("user name")
+        if not Validator.test_email(email):
+            errs.append("email")
+        if not Validator.test_password(password):
+            errs.append("Password")
+        if not Validator.test_date(nascimento):
+            errs.append("nascimento")
+
+        if errs:
+            raise ValueError(f"Invalid filds {", ".join(errs)}" )
+
+    @staticmethod
+    def test_email(email:str) -> bool:
+        if not email:
+            return False
+        if not "@" in email:
+            return False
+        if not "." in email:
+            return False
+        
+        return True
+    
+    @staticmethod
+    def test_password(password:str) -> bool:
+        if len(password) < 4:
+            return False
+        
+        return True
+
+    @staticmethod
+    def test_date(date:str, format="%Y-%m-%d") -> bool:
+        
+        try:
+            datetime.strptime(date, format)
+            return True
+        except ValueError:
+            return False
+
+
+
+class ValidateForm:
+
+    form_type = "application/x-www-form-urlencoded"
+
+    def __init__(self, form, filds:set[str]):
+        self.filds_set = filds
+        self.form = form
+
+        if self.__validade():
+            raise ValueError("Invalid form")
+
+    def __validade(self):
+        keys = set(list(self.form.keys()))
+        return self.filds_set - keys
+    
+    def get(self, name):
+        return self.form[name]
+    
+    def __getitem__(self, key):
+        return self.get(key)
+    
