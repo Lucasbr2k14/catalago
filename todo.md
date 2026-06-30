@@ -1,10 +1,14 @@
 # O que fazer
 
 ## Back end
-- [ ] Conectar No banco de dados
+- [X] Conectar No banco de dados
 
 - [ ] Fazer administrador administrar
 - [ ] Usuário
+    - [X] Criar
+    - [ ] Editar
+    - [ ] Mudar Role
+
     - [ ] Produto
         - [ ] Criar
         - [ ] Editar
