@@ -22,6 +22,7 @@
 
 ## Front end
 - [ ] Fazer tela de login
+- [ ] Fazer tela de registro
 - [ ] Fazer tela de administrador
 - [ ] Fazer tela de usuario
 - [ ] Fazer tela de produtos
