@@ -12,7 +12,7 @@ def register_errors(app:Flask):
 
     @app.errorhandler(InvalidUser)
     def invadUser(err):
-        return ("Invalid user", 400)
+        return (f"Invalid user: {err}", 400)
 
 
     @app.errorhandler(ValueError)
@@ -29,6 +29,16 @@ def register_errors(app:Flask):
     def tokenExpired(e):
         return redirect("/login")
     
+
+    @app.errorhandler(TypeError)
+    def typeErr(e):
+        return e, 400
+
+
+    @app.errorhandler(InternalErr)
+    def InternalError(e):
+        return "Internal error.", 500
+
 
     @app.errorhandler(404)
     def notFoundError(e):
