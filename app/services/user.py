@@ -1,7 +1,9 @@
 from ..models import User
-from .auth import Auth
-import uuid
+from ..repository import UserRepo
+from .segurityService import SegurityService
+from ..exceptions import InvalidUser, InternalErr
 
+import uuid
 
 class UserService:
 
@@ -13,6 +15,48 @@ class UserService:
         nascimento: str,
         password: str,
     ):
-        hash_pass = Auth.create_hash_pass(password)
+        hash_pass = SegurityService.create_hash_pass(password)
         user_uuid = str(uuid.uuid4())
         return User(name, email, user_name, nascimento, hash_pass, user_uuid)
+    
+    @staticmethod
+    def login(
+        user_repo:UserRepo, 
+        email:str, 
+        password:str, 
+        secret_jwt:str, 
+        time_jwt:int
+    ) -> str:
+        
+        # Test email
+        if not email: 
+            raise ValueError("Invalid email")
+
+
+        test = user_repo.get_user_login(email)
+
+        if not test:
+            raise InvalidUser("Invalid email")
+
+        pass_stored, uuid = test
+
+        check_pw:bool = SegurityService.verify_pass(password, pass_stored)
+        
+        if check_pw == False:
+            raise InvalidUser("Invalid password")
+
+        user:User = user_repo.get_user(uuid)
+        
+        if (not user.uuid or not user.role):
+            raise InternalErr()
+
+
+        token:str = SegurityService.create_jwt(
+            user.user_name,
+            user.uuid,
+            user.role,
+            secret_jwt,
+            time_jwt
+        )
+
+        return token

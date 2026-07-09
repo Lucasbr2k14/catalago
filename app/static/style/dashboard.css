@@ -1,0 +1,8 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+main {
+    height: calc(100vh - 10vh - 5vh);
+}

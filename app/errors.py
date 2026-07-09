@@ -40,6 +40,11 @@ def register_errors(app:Flask):
         return "Internal error.", 500
 
 
+    @app.errorhandler(TypeError)
+    def typeErr(e):
+        return f"Type Error: {e}", 500
+
+
     @app.errorhandler(404)
     def notFoundError(e):
         return render_template("erros/notfound.html"), 404

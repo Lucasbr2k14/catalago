@@ -1,6 +1,7 @@
 footer {
     background-color: var(--cor-4);
     color: var(--letra-2);
+    height: clamp(45px, 10vh, 100px)
 }
 
 footer a {

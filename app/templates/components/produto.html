@@ -1,18 +1,14 @@
 {% for prod in produtos %}
 <div class="produto">
     <h3> {{ prod.nome }}</h3>
-    
     <img src="static/{{ prod['imagem'] }}" />
-    
     <div class = "items">
-        
         <p>
             Items 
             <span class="seta">
                 &#9656;
             </span>
         </p>
-            
         <table>
             <thead>
                 <tr>

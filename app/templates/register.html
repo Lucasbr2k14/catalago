@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +13,10 @@
     <title>Registar</title>
 </head>
 <body class="ligth">
-    {%  include "header.html" %}
+    {%  include "components/header.html" %}
 
     <main>
-        <form for="/register" method="POST">
+        <form method="POST">
             <label for="nome">Nome completo: </label>
             </br>
             <input type="text" for="name" id="name" name="name" required>
@@ -37,14 +37,12 @@
             </br>
             <input type="date" for="nascimento" id="nascimento" name="nascimento" required>
             </br>
-            <label for="cpf">Cpf: </label>
-            </br>
             <input type="text" for="cpf" id="cpf" name="cpf" required>
             </br>
             <button type="submit"> Cadastrar </button>
         </form>
     </main>
 
-    {% include "footer.html" %}
+    {% include "components/footer.html" %}
 </body>
 </html>

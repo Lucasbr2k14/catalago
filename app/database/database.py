@@ -1,14 +1,13 @@
 from psycopg_pool import ConnectionPool
-from os import getenv
 from typing import Any
 
 class DataBase:
-    def __init__(self):
-        self.host = getenv("POSTGRESS_HOST")
-        self.port = int(getenv("POSTGRESS_PORT", 5432))
-        self.user = getenv("POSTGRESS_USER")
-        self.password = getenv("POSTGRESS_PASSWORD")
-        self.dbname = getenv("POSTGRESS_DB_NAME")
+    def __init__(self, host, port, user, password, dbname):
+        self.host = host
+        self.port = port
+        self.user = user
+        self.password = password
+        self.dbname = dbname
     
         self.db_pool = ConnectionPool(
             conninfo = self._get_connect(),

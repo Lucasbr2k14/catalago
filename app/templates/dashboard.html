@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/temas.css') }} ">
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/dashboard.css') }} ">
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/header.css') }} ">
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style/footer.css') }} ">
+
+    <title>Dashboard</title>
+</head>
+<body class="ligth">
+    {% include "components/header.html" %}
+    <main>
+        <h1>Dashboard</h1>
+        <p>Olá, {{ user['user_name'] }} </p>
+        <p>UUID {{ user['uuid'] }}</p>
+        <p>Você é {{ user['role'] }}</p>
+    </main>
+    {% include "components/footer.html" %}
+</body>
+</html>

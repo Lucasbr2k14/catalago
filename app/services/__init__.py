@@ -1,2 +1,2 @@
-from .auth import Auth
+from .segurityService import SegurityService
 from .user import UserService

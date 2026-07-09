@@ -6,9 +6,9 @@
 - [ ] Fazer administrador administrar
 - [ ] Usuário
     - [X] Criar
+    - [X] Login
     - [ ] Editar
     - [ ] Mudar Role
-
     - [ ] Produto
         - [ ] Criar
         - [ ] Editar
@@ -26,3 +26,4 @@
 - [ ] Fazer tela de administrador
 - [ ] Fazer tela de usuario
 - [ ] Fazer tela de produtos
+- [ ] Criar um tamplate base 
