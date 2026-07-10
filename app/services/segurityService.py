@@ -24,12 +24,15 @@ class SegurityService:
         )
 
     @staticmethod
-    def create_jwt(user_name: str, uuid:str, role:str, key:str, exp_s:int) -> str:
+    def create_jwt(user_name: str, uuid:str, role:str) -> str:
+        key = current_app.extensions["configs"].jwt_secret
+        exp = current_app.extensions["configs"].jwt_expire
+
         payload = {
             'user_name': user_name,
             'uuid': uuid,
             'role': role,
-            'exp': datetime.now(tz=timezone.utc) + timedelta(seconds=exp_s)
+            'exp': datetime.now(tz=timezone.utc) + timedelta(seconds=exp)
         }
 
         return jwt.encode(
@@ -40,7 +43,10 @@ class SegurityService:
 
 
     @staticmethod
-    def validate_jwt(token:str, key:str) -> dict:
+    def validate_jwt(token:str) -> dict:
+
+        key = current_app.extensions["configs"].jwt_secret
+
         try:
             return jwt.decode(token, key, algorithms=[SegurityService.token_alg])
         except jwt.exceptions.ExpiredSignatureError:

@@ -24,14 +24,11 @@ class UserService:
         user_repo:UserRepo, 
         email:str, 
         password:str, 
-        secret_jwt:str, 
-        time_jwt:int
     ) -> str:
         
         # Test email
         if not email: 
             raise ValueError("Invalid email")
-
 
         test = user_repo.get_user_login(email)
 
@@ -55,8 +52,14 @@ class UserService:
             user.user_name,
             user.uuid,
             user.role,
-            secret_jwt,
-            time_jwt
         )
 
         return token
+    
+    @staticmethod
+    def user_redirect(token:str): 
+        try:
+            SegurityService.validate_jwt(token)
+            return True
+        except:
+            return False

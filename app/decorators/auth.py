@@ -12,10 +12,7 @@ def login_required(func):
         if not token:
             return redirect("/login", 303), 303
         
-        g.user_token = SegurityService.validate_jwt(
-            token=token,
-            key=current_app.extensions['configs'].jwt_secret
-        )
+        g.user_token = SegurityService.validate_jwt(token)
 
         return func(*args, **kwargs)
     

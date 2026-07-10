@@ -1,5 +1,5 @@
 from flask import Flask
-from .routes import index_blueprint
+from .routes import register_blueprint
 from .database import DataBase
 from .errors import register_errors
 from configs import Configs
@@ -20,7 +20,7 @@ def create_app(configs:Configs) -> Flask:
         dbname=app.extensions["configs"].postgres_datb
     )
 
-    app.register_blueprint(index_blueprint)
+    register_blueprint(app)
     register_errors(app)
 
     return app
