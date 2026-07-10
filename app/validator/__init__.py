@@ -1,4 +1,6 @@
 from datetime import datetime
+from decimal import Decimal
+from typing import Any
 
 class Validator:
     @staticmethod
@@ -54,6 +56,10 @@ class Validator:
             return False
 
 
+    @staticmethod
+    def price_valid(price:str) -> Decimal:
+        return Decimal(price)
+
 
 class ValidateForm:
 
@@ -75,4 +81,23 @@ class ValidateForm:
     
     def __getitem__(self, key):
         return self.get(key)
-    
+
+
+
+class ValidadeJson:
+    def __init__(self, json_dict:dict[str, Any], filds:set[str]):
+        self.filds_set = filds
+        self.json_dict = json_dict
+
+        if self.__validate():
+            raise ValueError("Invalid json")
+
+    def __validate(self):
+        keys = set(self.json_dict.keys())
+        return self.filds_set - keys
+
+    def get(self, name):
+        return self.json_dict[name]
+
+    def __getitem__(self, key):
+        self.get(key)
