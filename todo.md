@@ -18,7 +18,8 @@
         - [ ] Editar
         - [ ] Excluir
 
-
+    - [ ] Vendedor
+        - [ ] Fazer venda
 
 ## Front end
 - [ ] Fazer tela de login

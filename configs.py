@@ -11,6 +11,8 @@ class Configs:
     def __init__(self):
         self.jwt_secret = getenv("JWT_TOKEN", "")
         self.jwt_expire = int(getenv("JWT_EXPIRATION_S", 3600))
+        self.upload_dir = getenv("UPLOAD", "./uploads/")
+
 
         self.postgres_host = getenv("POSTGRES_HOST")
         self.postgres_port = int(getenv("POSTGRES_PORT", 5432))

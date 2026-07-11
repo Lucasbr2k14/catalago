@@ -57,6 +57,10 @@ class Dashboard {
                     <input id="prod-price-add" type="number" step="0.01" min="0">
                 </div>
             </label>
+            <label>
+                Foto
+                <input type="file" id="imagem" accept="image/*">
+            </label>
         `
 
         const btns = `
@@ -126,11 +130,7 @@ async add_prod() {
         }
 
         const data = await response.json();
-
-        console.log("Produto cadastrado:", data);
-
         this.dialog.close();
-
         await this.start_dash();
 
     } catch (error) {

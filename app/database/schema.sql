@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS produto (
     nome      TEXT NOT NULL UNIQUE,
     preco     INT NOT NULL,
     quant     INT DEFAULT 0,
+    img_path  TEXT,
     create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id   INT,
     FOREIGN KEY (user_id) REFERENCES "users"(id)

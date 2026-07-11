@@ -7,3 +7,4 @@ api = Blueprint(
 )
 
 from . import products
+from . import img
