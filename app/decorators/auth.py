@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import g, request, redirect, current_app
 from ..services import SegurityService
-
+from ..exceptions import AuthenticationError
 
 
 def login_required(func):
@@ -10,7 +10,7 @@ def login_required(func):
         token = request.cookies.get("access_token")
 
         if not token:
-            return redirect("/login", 303), 303
+            raise AuthenticationError()
         
         g.user_token = SegurityService.validate_jwt(token)
 

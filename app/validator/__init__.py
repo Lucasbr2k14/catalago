@@ -61,6 +61,14 @@ class Validator:
         return Decimal(price)
 
 
+    @staticmethod
+    def quanti_valid(quant:int) -> int:
+        if quant >= 0:
+            return quant
+        else:
+            raise ValueError("Quantidade is invalid.")
+
+
 class ValidateForm:
 
     form_type = "application/x-www-form-urlencoded"
@@ -100,4 +108,4 @@ class ValidadeJson:
         return self.json_dict[name]
 
     def __getitem__(self, key):
-        self.get(key)
+        return self.get(key)

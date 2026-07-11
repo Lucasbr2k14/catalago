@@ -1,3 +1,5 @@
+import "./menu.js"
+
 const produtos = document.querySelectorAll(".produto");
 const pesquisa = document.querySelector("#pesquisa");
 
@@ -40,3 +42,4 @@ for (let i = 0; i < produtos.length; i++) {
         (p) => { eventMenu(i) }
     );
 }
+

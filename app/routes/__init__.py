@@ -1,10 +1,10 @@
 from .front import front
-
+from .api import api
 
 blueprints = [
-    front
+    front,
+    api
 ]
-
 
 def register_blueprint(app):
     for b in blueprints:

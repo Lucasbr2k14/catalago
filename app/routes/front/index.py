@@ -12,4 +12,4 @@ def index():
     with open("flores.json", "r") as f:
         dictr = json.load(f)
 
-    return render_template('index.html', produtos=dictr, login=True)
+    return render_template('index.html', produtos=dictr)

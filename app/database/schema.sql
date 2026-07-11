@@ -20,9 +20,11 @@ CREATE TABLE IF NOT EXISTS "users" (
 
 CREATE TABLE IF NOT EXISTS produto (
     id        SERIAL PRIMARY KEY,
-    nome      TEXT NOT NULL,
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    uuid      TEXT NOT NULL UNIQUE,
+    nome      TEXT NOT NULL UNIQUE,
     preco     INT NOT NULL,
+    quant     INT DEFAULT 0,
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id   INT,
     FOREIGN KEY (user_id) REFERENCES "users"(id)
 );
@@ -30,7 +32,7 @@ CREATE TABLE IF NOT EXISTS produto (
 CREATE TABLE IF NOT EXISTS tipo_composicao (
     id   SERIAL PRIMARY KEY,
     nome TEXT NOT NULL
-)
+);
 
 CREATE TABLE IF NOT EXISTS composicao (
     id              SERIAL PRIMARY KEY,

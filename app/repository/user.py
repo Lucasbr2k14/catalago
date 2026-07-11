@@ -11,7 +11,13 @@ class UserRepo:
     def get_user(self, uuid:str) -> User:
         query = """
         SELECT 
-            u.uuid, u.name, u.user_name, u.email, u.nascimento, u.create_at, r.nome
+            u.uuid,
+            u.name,
+            u.user_name,
+            u.email,
+            u.nascimento,
+            u.create_at,
+            r.nome
         FROM "users" AS u
         INNER JOIN user_roules AS r
             ON u.role_id = r.id
@@ -42,6 +48,10 @@ class UserRepo:
     def update_user(self):
         pass
     
+    """
+        Esse try except não deveria estar aqui tem que passar para o service.
+        Porque isso deveria ser no service onde as regras de negócio ficam.
+    """
     def register(self, u:User): 
         try:
             query = """

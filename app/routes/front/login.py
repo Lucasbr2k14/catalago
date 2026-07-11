@@ -47,9 +47,10 @@ def login():
         key="access_token",
         value=token,
         httponly=True,
-        secure= not app['configs'].dev, #Mudar se desenvolvimento
+        secure = False, #Mudar se desenvolvimento
         samesite="Lax",
-        max_age=app['configs'].jwt_expire
+        max_age=app['configs'].jwt_expire,
+        path="/"
     )
 
     return response, 303

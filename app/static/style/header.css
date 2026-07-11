@@ -1,6 +1,57 @@
 header {
     background-color: var(--background-2);
     color: var(--letra-2);
+    display: flex;
+
     padding: 10px;
-    height: 5vh;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu-btn {
+    font-size: 30px;
+    background:none;
+    color: var(--letra-2);
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    display: none;
+
+    min-width: 200px;
+    background: white;
+    border: 1px solid var(--background-2);
+    border-radius: 8px;
+}
+
+.menu.open {
+    display: block;
+}
+
+.menu a,
+.menu button {
+    text-decoration: none;
+    color: var(--letra-1);
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu a:hover,
+.menu button:hover {
+    background: var(--background-1);
+    border: none;
 }
