@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/index.css') }} ">
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/header.css') }} ">
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/temas.css') }} ">
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/footer.css') }} ">
-    
-    <script defer src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <link rel="stylesheet" href="/static/style/index.css">
+    <link rel="stylesheet" href="/static/style/header.css">
+    <link rel="stylesheet" href="/static/style/temas.css">
+    <link rel="stylesheet" href="/static/style/footer.css">
+
+    <script type="module" defer="" src="/static/js/index.js"></script>
 
     <title>Document</title>
 </head>
@@ -18,7 +18,6 @@
         Tá cuidando o que 🤨.
     -->
     {% include "components/header.html" %}
-    
     <main>
         
         <div class="pesquisa">

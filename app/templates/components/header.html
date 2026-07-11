@@ -1,5 +1,17 @@
 <header>
-    <h1>
-        Oficina das flores
-    </h1>
+    <h1>Oficina das flores</h1>
+
+    <div class="dropdown">
+        <button id="menu-btn">☰</button>
+
+        <nav id="menu" class="menu">
+            <a href="/login">Login</a>
+            <a href="/register">Registrar</a>
+            {% if login %}
+            <a href="/dashboard">Dashboard</a>
+            <hr>
+            <button>Sair</button>
+            {% endif %}
+        </nav>
+    </div>
 </header>

@@ -14,14 +14,7 @@
 <body class="ligth">
     {% include "components/header.html" %}
     <main>
-        <form action="/logout" method="POST">
-            <button type="submit">Sair</button>
-        </form>
-        
         <h1>Dashboard</h1>
-        <p>Olá,   {{ user['user_name'] }} </p>
-        <p>UUID   {{ user['uuid'] }}</p>
-        <p>Você é {{ user['role'] }}</p>
     </main>
     {% include "components/footer.html" %}
 </body>
