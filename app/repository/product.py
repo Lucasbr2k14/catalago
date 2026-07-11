@@ -41,7 +41,13 @@ class ProductRepo:
     def update(self): ...
     def delete(self, uuid:str): ...
     def get(self, uuid:str): ...
-    def gets(self, limit = 10, offset = 0):
+    
+    def gets(
+        self,
+        limit: int = 10,
+        offset: int = 0,
+        search: str | None = None
+    ):
         query = """
         SELECT
             p.uuid,
@@ -50,13 +56,25 @@ class ProductRepo:
             p.quant,
             u.user_name
         FROM produto AS p
-        INNER JOIN "users" AS u
+        INNER JOIN users AS u
             ON p.user_id = u.id
+        """
+
+        params = []
+
+        if search:
+            query += "\nWHERE p.nome ILIKE %s"
+            params.append(f"%{search}%")
+
+        query += """
+        ORDER BY p.nome
         LIMIT %s
         OFFSET %s
         """
 
-        return self.db.fetchall(query, (limit, offset))
+        params.extend([limit, offset])
+        
+        return self.db.fetchall(query, tuple(params))
 
     def items_count(self) -> int:
         query = "SELECT COUNT(uuid) FROM produto"

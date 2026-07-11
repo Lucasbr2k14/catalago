@@ -4,17 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/temas.css') }} ">
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/dashboard.css') }} ">
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/header.css') }} ">
-    <link rel="stylesheet" href=" {{ url_for('static', filename='style/footer.css') }} ">
+    <link rel="stylesheet" href="/static/style/temas.css">
+    <link rel="stylesheet" href="/static/style/dashboard.css">
+    <link rel="stylesheet" href="/static/style/header.css">
+    <link rel="stylesheet" href="/static/style/footer.css">
+
+    <script defer="" type="module" src="/static/js/dashboard.js"></script>
 
     <title>Dashboard</title>
 </head>
 <body class="ligth">
     {% include "components/header.html" %}
+
+    <dialog id="janela">
+        <h2 id="dia-title"></h2>
+        <div id="dia-content"></div>
+        <div id="dia-buttons"></div>
+    </dialog>
+
     <main>
-        <h1>Dashboard</h1>
+        
+        <div id="produtos-dash">
+            <div id="prod-head">
+                <h2>Produtos</h2>
+                <input id="pesq-prod" placeholder="pesquisar"></input>
+                <button id="add-prod-btn">+</button>
+            </div>
+            <div id="produtos"></div>
+        </div>
+
     </main>
     {% include "components/footer.html" %}
 </body>

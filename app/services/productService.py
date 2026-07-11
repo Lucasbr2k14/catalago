@@ -33,6 +33,7 @@ class ProductService:
     @staticmethod
     def getPages(
         r: ProductRepo,
+        search:str | None = None,
         page:int = 0,
         products_quant:int = 10
     ):
@@ -41,8 +42,9 @@ class ProductService:
 
         c = ProductService.__convert
         prods = r.gets(
-            limit=products_quant,
-            offset= products_quant * page
+            limit  = products_quant,
+            offset = products_quant * page,
+            search = search
         )
 
         prod = [ c(p) for p in prods ]

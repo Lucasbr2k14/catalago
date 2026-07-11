@@ -10,7 +10,9 @@
             {% if login %}
             <a href="/dashboard">Dashboard</a>
             <hr>
-            <button>Sair</button>
+            <form action="/logout" method="POST">
+                <button>Sair</button>
+            </form>
             {% endif %}
         </nav>
     </div>

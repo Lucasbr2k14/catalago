@@ -10,7 +10,7 @@
     - [ ] Editar
     - [ ] Mudar Role
     - [ ] Produto
-        - [ ] Criar
+        - [X] Criar
         - [ ] Editar
         - [ ] Excluir
     - [ ] Composição

@@ -63,6 +63,7 @@ def page_prod():
     
     page  = request.args.get('page', default=0, type=int)
     limit = request.args.get('limit', default=10, type=int)
+    search = request.args.get('search', default='', type=str)
 
     prod_repo = ProductRepo(
         current_app.extensions['db']
@@ -71,7 +72,9 @@ def page_prod():
     res = ProductService.getPages(
         prod_repo,
         page=page,
-        products_quant=limit
+        products_quant=limit,
+        search=search
+
     )
 
     return jsonify(res), 200

@@ -9,6 +9,7 @@ from . import front
 def dashboard():
     if request.method == "GET":
         user = g.user_token
-        return render_template("dashboard.html", user=user), 200
+
+        return render_template("dashboard.html", user=user, login=True), 200
     
     return "", 405
