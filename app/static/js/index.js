@@ -26,8 +26,6 @@ function pesquisar(input) {
         } else {
             produtos[i].style.display = "none";
         }
-    
-    
     }
 
 }

@@ -1,9 +1,10 @@
 import "./menu.js"
+import "./createTable.js"
+
 
 function $(a){
     return document.querySelector(a);
 }
-
 
 class Dashboard {
     constructor () {
@@ -12,7 +13,9 @@ class Dashboard {
         this.dialog = $("#janela");
         this.add_prod_buton = $("#add-prod-btn");
         this.add_event();
-        this.start_dash();  
+        this.start_dash();
+
+        this.product_images = {};
     }
 
 
@@ -124,7 +127,6 @@ class Dashboard {
 
         try {
             const url_image = await this.sand_file(foto);
-            console.log(url_image);
 
             const response = await fetch("/api/product", {
                 method: "POST",
@@ -198,14 +200,18 @@ class Dashboard {
 
         for (let i in products) {
             const p = products[i];
+
+            this.product_images[p.name] = p.image_path; 
+            
             tbody += `
             <tr>
-                <td class="prod-name" >${p.name}</td>
+                <td class="prod-name" ><p class="p-name">${p.name}</p></td>
                 <td class="prod-quat" >${p.quantidade}</td>
                 <td class="prod-prec" >R$${p.preco.replace(".", ",")}</td>
             </tr>
             `;
         }
+
         tbody += "</tbody>"
 
         const table = `
@@ -216,8 +222,36 @@ class Dashboard {
         `;
 
         this.prod_div.innerHTML = table;
+        this.set_preview();
     }
     
+
+    set_preview() {
+        const name = document.querySelectorAll('.p-name');
+        const preview_img = document.querySelector("#preview img");
+        const preview = document.querySelector("#preview");
+
+        name.forEach( (element) => {
+            element.addEventListener("mouseenter", (e) => {
+                preview_img.setAttribute("src",  this.product_images[element.innerText]);
+                preview.style.display = 'block';
+            });
+        
+            element.addEventListener("mouseleave", (e) => {
+                preview.style.display = 'none';
+            });
+        
+            element.addEventListener("mousemove", (e) => {
+                preview.style.left = `${e.clientX + 20}px`
+                preview.style.top  = `${e.clientY + 20}px` 
+            })
+        
+        });
+
+        
+    }
+
+
     async get_products(page, limit=10, name='') {
         let url = `/api/products?page=${page}&limit=${limit}`;
 
@@ -239,3 +273,6 @@ class Dashboard {
 }
 
 const dash = new Dashboard();
+
+
+

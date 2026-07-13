@@ -1,7 +1,7 @@
 footer {
-    background-color: var(--cor-4);
+    background-color: var(--backgorund-2);
     color: var(--letra-2);
-    height: fit-content;
+    height: 100%;
 }
 
 footer a {
