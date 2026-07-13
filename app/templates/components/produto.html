@@ -1,7 +1,7 @@
 {% for prod in produtos %}
 <div class="produto">
     <h3> {{ prod.nome }}</h3>
-    <img src="static/{{ prod['imagem'] }}" />
+    <img src="{{prod['imagem']}}" />
     <div class = "items">
         <p>
             Items 

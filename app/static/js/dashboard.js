@@ -6,7 +6,6 @@ function $(a){
 
 
 class Dashboard {
-    
     constructor () {
         this.prod_div = $("#produtos");
         this.prod_inp = $("#pesq-prod");
@@ -16,12 +15,14 @@ class Dashboard {
         this.start_dash();  
     }
 
+
     async start_dash() {
         this.create_table(
             await this.get_products(0)
         );
     }
-    
+
+
     add_event() {
         this.prod_inp.addEventListener("input", (e) => {
             this.search_product(this.prod_inp.value);
@@ -31,6 +32,7 @@ class Dashboard {
             this.add_prod_menu();
         });
     }
+
 
     add_prod_menu() {
         const title = this.dialog.querySelector("h2");
@@ -59,7 +61,7 @@ class Dashboard {
             </label>
             <label>
                 Foto
-                <input type="file" id="imagem" accept="image/*">
+                <input type="file" id="image" accept="image/*">
             </label>
         `
 
@@ -85,6 +87,7 @@ class Dashboard {
         });
     }
 
+
     async search_product(name) {
         this.get_products(0, 10, name).then( res => {
             console.log(res);
@@ -92,52 +95,90 @@ class Dashboard {
         });
     }
 
-async add_prod() {
-    const nome = document.querySelector("#prod-name-add").value.trim();
-    const quantidade = Number(document.querySelector("#prod-quant-add").value);
-    const preco = Number(document.querySelector("#prod-price-add").value);
 
-    if (!nome) {
-        alert("Informe o nome do produto.");
-        return;
-    }
+    async add_prod() {
+        const nome = document.querySelector("#prod-name-add").value.trim();
+        const quantidade = Number(document.querySelector("#prod-quant-add").value);
+        const preco = Number(document.querySelector("#prod-price-add").value);
+        const foto = document.querySelector("#image");
 
-    if (quantidade < 0 || Number.isNaN(quantidade)) {
-        alert("Quantidade inválida.");
-        return;
-    }
-
-    if (preco < 0 || Number.isNaN(preco)) {
-        alert("Preço inválido.");
-        return;
-    }
-
-    try {
-        const response = await fetch("/api/product", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nome,
-                preco,
-                quantidade
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erro ${response.status}`);
+        if (!nome) {
+            alert("Informe o nome do produto.");
+            return;
         }
 
-        const data = await response.json();
-        this.dialog.close();
-        await this.start_dash();
+        if (quantidade < 0 || Number.isNaN(quantidade)) {
+            alert("Quantidade inválida.");
+            return;
+        }
 
-    } catch (error) {
-        console.error("Erro ao cadastrar produto:", error);
-        alert("Não foi possível cadastrar o produto.");
+        if (preco < 0 || Number.isNaN(preco)) {
+            alert("Preço inválido.");
+            return;
+        }
+
+        if (foto.files.length != 1) {
+            alert("Foto inválida");
+            return;
+        }
+
+        try {
+            const url_image = await this.sand_file(foto);
+            console.log(url_image);
+
+            const response = await fetch("/api/product", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    preco:preco,
+                    quantidade:quantidade,
+                    image: url_image.url
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Erro ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            this.dialog.close();
+            await this.start_dash();
+
+        } catch (error) {
+            alert(`Não foi possível cadastrar o produto. ${error}`);
+        }
+
     }
-}
+
+
+    async sand_file(file_input) {
+
+        const file = file_input.files[0];
+        const formData = new FormData();
+
+        formData.append("image", file);
+
+        try {
+            const res = await fetch('/api/image', {
+                method: 'POST',
+                body:formData
+            });
+        
+            if (!res.ok) {
+                throw new Error(`Error: ${res.status}`);
+            }
+
+            return res.json();
+        } catch (e) {
+            alert("Foto inválida");
+        }
+
+    }
+
 
     create_table(prod) {
 
@@ -194,6 +235,7 @@ async add_prod() {
 
         return json;
     }
+
 }
 
 const dash = new Dashboard();

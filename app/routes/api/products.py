@@ -19,7 +19,14 @@ from . import api
 
 @api.get('/product/<string:uuid>')
 def get_prod(uuid):
-    return f"{uuid}", 200
+    
+    prod_repo = ProductRepo(
+        current_app.extensions['db']
+    )
+    
+    r = ProductService.get(prod_repo, uuid)
+    
+    return jsonify(r), 200
 
 
 @api.post('/product')
@@ -33,7 +40,7 @@ def create_prod():
 
     jsonv = ValidadeJson(
         req,
-        {'preco', 'quantidade', 'nome'}
+        {'preco', 'quantidade', 'nome', 'image'}
     )
 
     prod_repo = ProductRepo(
@@ -43,9 +50,10 @@ def create_prod():
     nome = jsonv['nome']
     preco = Validator.price_valid(jsonv['preco'])
     quantidade = Validator.quanti_valid(jsonv['quantidade'])
+    image = jsonv['image']
     user_uuid = g.user_token['uuid']
 
-    prod_ser = ProductService.register(prod_repo, nome, preco, quantidade, user_uuid)
+    prod_ser = ProductService.register(prod_repo, nome, preco, quantidade, image, user_uuid)
 
     return jsonify()
 

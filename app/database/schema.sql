@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS user_roules (
     id   SERIAL PRIMARY KEY,
     nome VARCHAR(20)
@@ -27,6 +26,7 @@ CREATE TABLE IF NOT EXISTS produto (
     img_path  TEXT,
     create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id   INT,
+
     FOREIGN KEY (user_id) REFERENCES "users"(id)
 );
 
@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS composicao (
     foto            TEXT,
     user_id         INT,
     tipo_composicao INT,
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
     FOREIGN KEY (tipo_composicao) REFERENCES "tipo_composicao"(id),
     FOREIGN KEY (user_id) REFERENCES "users"(id)
 );
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS composicoes_produto (
     produto_id    INT,
     composicao_id INT,
     user_id       INT,
+
     FOREIGN KEY (produto_id) REFERENCES produto(id),
     FOREIGN KEY (composicao_id) REFERENCES composicao(id),
     FOREIGN KEY (user_id) REFERENCES "users"(id)

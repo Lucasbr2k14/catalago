@@ -15,6 +15,7 @@ class ProductService:
         nome:  str,
         preco: Decimal, 
         quant: int,
+        image_url:str,
         u_uuid:str
     ):
         if not nome or not preco or not quant:
@@ -22,7 +23,7 @@ class ProductService:
 
         p_uuid = str(uuid.uuid4())
 
-        product = Product(nome, preco, quant, p_uuid)
+        product = Product(nome, preco, quant, image_url, p_uuid)
         
         try:
             repository.register(product, u_uuid)
@@ -54,6 +55,31 @@ class ProductService:
             'total pages': pages,
             'page': page,
             'total': total,
+        }
+
+
+    @staticmethod
+    def get(
+        r:ProductRepo,
+        uuid:str,
+    ):
+        res = r.get(uuid)
+        prod = ProductService.__convert_all(res)
+        return prod
+
+
+    @staticmethod
+    def __convert_all(tu:tuple):
+        preco  = Decimal(tu[1]) / 100
+        precof = "{:.2f}".format(preco)
+
+        return {
+            'name': tu[0],
+            'preco': precof,
+            'quantidade': tu[2],
+            'image_url': tu[3],
+            'create_by': tu[4],
+            'create_at': tu[5],
         }
 
 

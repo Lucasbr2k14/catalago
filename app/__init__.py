@@ -9,7 +9,7 @@ from .services import SegurityService
 
 def create_app(configs:Configs) -> Flask:
     app = Flask(__name__)
-
+    app.json.sort_keys = False # type:ignore
     app.extensions["configs"] = configs
 
     app.extensions["db"] = DataBase(

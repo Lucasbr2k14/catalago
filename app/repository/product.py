@@ -17,9 +17,11 @@ class ProductRepo:
             nome,
             preco,
             quant,
+            img_path,
             user_id
         )
         VALUES (
+            %s,
             %s,
             %s,
             %s,
@@ -33,6 +35,7 @@ class ProductRepo:
             prod.nome,
             prod.preco_cents,
             prod.quant,
+            prod.image_url,
             user_uuid
         )
 
@@ -40,7 +43,36 @@ class ProductRepo:
 
     def update(self): ...
     def delete(self, uuid:str): ...
-    def get(self, uuid:str): ...
+
+    def get(self, uuid:str):
+        """
+        Função retorna uma tupla com as infomações do produto
+        na seguinte ordem:
+        0 - nome
+        1 - preço em centavos
+        2 - quantidade
+        3 - imagem url
+        4 - uuid do usuário
+        5 - create at
+        """
+        query = """
+        SELECT
+            p.nome,
+            p.preco,
+            p.quant,
+            p.img_path,
+            u.uuid,
+            p.create_at
+        FROM produto AS p
+        INNER JOIN users AS u
+            ON p.user_id = u.id
+        WHERE 
+            p.uuid = %s
+        """
+        
+        res = self.db.fetchone(query, (uuid,));
+
+        return res
     
     def gets(
         self,
@@ -54,6 +86,7 @@ class ProductRepo:
             p.nome,
             p.preco,
             p.quant,
+            p.create_at,
             u.user_name
         FROM produto AS p
         INNER JOIN users AS u

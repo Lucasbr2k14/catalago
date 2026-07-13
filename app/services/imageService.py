@@ -1,5 +1,5 @@
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageOps
 from uuid import uuid4
 
 from flask import current_app, send_from_directory
@@ -14,11 +14,11 @@ def process_image(file, upload_dir:Path):
     """
     upload_dir.mkdir(exist_ok=True, parents=True)
 
-
     filename = f"{uuid4()}.webp"
     filepath = upload_dir / filename 
 
     img = Image.open(file)
+    img = ImageOps.exif_transpose(img)
 
     img = img.convert("RGB")
     img.thumbnail((800,800))
@@ -41,12 +41,10 @@ class ImageService:
         upload_dir = current_app.extensions['configs'].upload_dir
         path = Path(upload_dir) / 'images'
         
-
         if not 'image' in request.files:
             raise ValueError("Invalid file")
         
-        try:
-            
+        try:    
             name = process_image(
                 request.files['image'],
                 path
@@ -55,7 +53,7 @@ class ImageService:
             raise ValueError("Invalid file")
 
         return f"/api/image/{name}"
-    
+
 
     @staticmethod
     def get(file):
