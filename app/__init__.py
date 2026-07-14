@@ -13,11 +13,7 @@ def create_app(configs:Configs) -> Flask:
     app.extensions["configs"] = configs
 
     app.extensions["db"] = DataBase(
-        host=app.extensions["configs"].postgres_host,
-        port=app.extensions["configs"].postgres_port,
-        user=app.extensions["configs"].postgres_user,
-        password=app.extensions["configs"].postgres_pass,
-        dbname=app.extensions["configs"].postgres_datb
+        configs.postgres_conn
     )
 
     register_blueprint(app)

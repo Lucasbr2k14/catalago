@@ -15,7 +15,7 @@ services:
     environment:
       POSTGRES_CONN: postgresql://catalogo:{{postgress_password}}@postgres:5432/catalogo
 
-      JWT_TOKEN: "{{}}"
+      JWT_TOKEN: "{{JWT_TOKEN}}"
       JWT_EXPIRATION_S: 3600
       UPLOAD: "/app/uploads"
 

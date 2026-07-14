@@ -14,13 +14,9 @@ class Configs:
         self.upload_dir = getenv("UPLOAD", "./uploads/")
 
 
-        self.postgres_host = getenv("POSTGRES_HOST")
-        self.postgres_port = int(getenv("POSTGRES_PORT", 5432))
-        self.postgres_user = getenv("POSTGRES_USER")
-        self.postgres_pass = getenv("POSTGRES_PASSWORD")
-        self.postgres_datb = getenv("POSTGRES_DB_NAME")
+        self.postgres_conn = getenv("POSTGRES_CONN") # Aqui é a conexão
 
         self.dev = str_bool(getenv("DEV"))
 
         self.host = getenv("HOST")
-        self.port = int(getenv("HOST_PORT", 8080))
+        self.port = int(getenv("PORT", 8080))

@@ -1,18 +1,12 @@
 from app import create_app
 from configs import Configs
 
+configs = Configs()
+app = create_app(configs)
+
 if __name__ == "__main__":
-    from dotenv import load_dotenv
-    load_dotenv()
-    configs = Configs()
-
-    app = create_app(
-        configs
-    )
-
     app.run(
-        debug=True,
+        host=configs.host,
         port=configs.port,
-        host=configs.host
+        debug=configs.dev
     )
-    

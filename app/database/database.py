@@ -2,22 +2,17 @@ from psycopg_pool import ConnectionPool
 from typing import Any
 
 class DataBase:
-    def __init__(self, host, port, user, password, dbname):
-        self.host = host
-        self.port = port
-        self.user = user
-        self.password = password
-        self.dbname = dbname
-    
+    def __init__(self, conn:str):
+
         self.db_pool = ConnectionPool(
-            conninfo = self._get_connect(),
+            conninfo = conn,
             min_size = 2,
             max_size = 20
         )
 
-
-    def _get_connect(self):
-        return f"postgresql://{self.user}:{self.password}@{self.host}:{str(self.port)}/{self.dbname}"
+        with open("./app/database/schema.sql", 'r') as file:
+            with self.get_pool as pool:
+                pool.execute(file.read())
 
 
     @property
