@@ -1,5 +1,4 @@
 import "./menu.js"
-import "./createTable.js"
 
 
 function $(a){
@@ -9,7 +8,8 @@ function $(a){
 
 function data(gmt) {
     const data = new Date(gmt);
-    return data.toLocaleDateString("pt-BR");
+    
+    return data.toLocaleString('pt-BR');
 }
 
 
