@@ -58,6 +58,20 @@ def create_prod():
     return jsonify()
 
 
+@api.patch('/product/<string:uuid>')
+@login_required
+@require_role('ADMIN', 'VENDOR')
+def update_product(uuid):
+
+    prod = ProductRepo(
+        current_app.extensions['db']
+    )
+
+    res = request.json
+    ProductService.updade(prod, uuid, res)
+    return jsonify({'status':'ok'}), 200
+
+
 # Para pegar produtos
 # Será preciso adicionar a quantidade de páginas
 @api.get('/products')

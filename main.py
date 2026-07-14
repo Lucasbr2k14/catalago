@@ -4,14 +4,15 @@ from configs import Configs
 if __name__ == "__main__":
     from dotenv import load_dotenv
     load_dotenv()
+    configs = Configs()
 
     app = create_app(
-        Configs()
+        configs
     )
 
     app.run(
         debug=True,
-        port=8080,
-        host="0.0.0.0"
+        port=configs.port,
+        host=configs.host
     )
     

@@ -3,8 +3,7 @@ from ...decorators import login_required
 
 from . import front
 
-
-@front.route("/dashboard", methods=["GET"])
+@front.get("/dashboard")
 @login_required
 def dashboard():
     if request.method == "GET":

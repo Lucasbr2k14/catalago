@@ -5,7 +5,7 @@ from ..models import Product
 from ..exceptions import ProductExists
 from typing import Any
 from psycopg.errors import UniqueViolation
-
+from datetime import datetime
 
 class ProductService:
     
@@ -69,29 +69,49 @@ class ProductService:
 
 
     @staticmethod
+    def updade(
+        r:ProductRepo,
+        uuid: str,
+        updates:dict
+    ):
+        
+        if 'preco' in updates:
+            preco  = Decimal(updates['preco']) * 100
+            updates['preco'] = int(preco)
+
+        res = r.update(uuid, updates)
+        return res
+
+    @staticmethod
     def __convert_all(tu:tuple):
-        preco  = Decimal(tu[1]) / 100
+
+        name, preco, quantidade, img, uuid_user, create_at = tu
+
+        preco  = Decimal(preco) / 100
         precof = "{:.2f}".format(preco)
 
         return {
-            'name': tu[0],
-            'preco': precof,
-            'quantidade': tu[2],
-            'image_url': tu[3],
-            'create_by': tu[4],
-            'create_at': tu[5],
+            'name'  : name,
+            'preco' : precof,
+            'quantidade': quantidade,
+            'image_url' : img,
+            'create_by' : uuid_user,
+            'create_at' : create_at, 
         }
 
 
     @staticmethod
-    def __convert(tu:tuple[str, str, int, int, str]) -> dict[str, Any]:
-        preco = Decimal(tu[2]) / 100
+    def __convert(tu:tuple) -> dict[str, Any]:
+        uuid, nome, preco, quantidade, img_path, create_at, user_name = tu
+
+        preco = Decimal(preco) / 100
         precof = "{:.2f}".format(preco)
         
         return {
-            'name': tu[1],
+            'name': nome,
             'preco': precof,
-            'quantidade': tu[3],
-            'uuid': tu[0]
+            'quantidade': quantidade,
+            'uuid': uuid,
+            'image_path': img_path
         }
-    
+

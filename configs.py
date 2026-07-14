@@ -21,3 +21,6 @@ class Configs:
         self.postgres_datb = getenv("POSTGRES_DB_NAME")
 
         self.dev = str_bool(getenv("DEV"))
+
+        self.host = getenv("HOST")
+        self.port = int(getenv("HOST_PORT", 8080))

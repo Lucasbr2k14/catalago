@@ -19,7 +19,10 @@
     <dialog id="janela">
         <h2 id="dia-title"></h2>
         <div id="dia-content"></div>
-        <div id="dia-buttons"></div>
+        <div id="dia-buttons">
+            <button id="ok">ok</button>
+            <button id="cancelar">cancelar</button>
+        </div>
     </dialog>
 
     <div class="hidden" id="preview">
@@ -28,7 +31,6 @@
 
 
     <main>
-        
         <div id="produtos-dash">
             <div id="prod-head">
                 <h2>Produtos</h2>
@@ -37,7 +39,6 @@
             </div>
             <div id="produtos"></div>
         </div>
-
     </main>
     {% include "components/footer.html" %}
 </body>

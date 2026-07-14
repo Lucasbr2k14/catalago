@@ -61,10 +61,20 @@ Foto que persegue o mouse
     display: flex;
 }
 
-#pesq-prod {
-    justify-self: center;
-    margin-left: 10px;
+
+input  {
+  padding: 10px 12px;
+  border: 1px solid #bdbdbd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--background-1);
+  color: var(--letra-1);
 }
+
+#pesq-prod {
+    max-width: 100px;
+}
+
 
 #add-prod-btn {
     font-size: 30px;
@@ -81,13 +91,45 @@ Foto que persegue o mouse
     cursor:pointer;
 }
 
+/*
+    Menu dos produtos
+*/
+#div-prod-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap:5px;
+
+}
+
+#div-prod-menu-image {
+    width: 50%;
+}
+
+#prod-menu-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+
+.p-name:hover {
+    cursor:pointer;
+}
+
+
+
+
 dialog {
     border: none;
     border-radius: 12px;
     padding: 0;
-    width: 30%;
-    min-width: 250px;
-    max-width: 500px;
+    
+    width: 100vw;
+    min-width: 350px;
+    max-width: 750px;
+
+
+
     background: var(--background-1);
     color: var(--letra-1);
     box-shadow: 0 16px 40px rgba(0, 0, 0, .25);

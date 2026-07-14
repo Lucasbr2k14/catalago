@@ -41,12 +41,43 @@ class ProductRepo:
 
         self.db.execute(query, values)
 
-    def update(self): ...
+
+    def update(self, uuid: str, update: dict):
+        campos = []
+        valores = []
+
+        if "preco" in update:
+            campos.append("preco = %s")
+            valores.append(update["preco"])
+
+        if "quantidade" in update:
+            campos.append("quant = %s")
+            valores.append(update["quantidade"])
+
+        if "image_url" in update:
+            campos.append("img_path = %s")
+            valores.append(update["image_url"])
+
+        if not campos:
+            return
+
+        valores.append(uuid)
+
+        query = f"""
+        UPDATE produto
+        SET {', '.join(campos)}
+        WHERE uuid = %s
+        """
+
+        self.db.execute(query, tuple(valores))
+        return True
+
     def delete(self, uuid:str): ...
+
 
     def get(self, uuid:str):
         """
-        Função retorna uma tupla com as infomações do produto
+        Função retorna uma tupla, com as infomações do produto
         na seguinte ordem:
         0 - nome
         1 - preço em centavos
@@ -80,12 +111,25 @@ class ProductRepo:
         offset: int = 0,
         search: str | None = None
     ):
+        """
+        Função gets pega os produtos da segunte forma tupla de tupla,
+        na ordem
+        0 - uuid
+        1 - nome
+        2 - preço
+        3 - quantidade
+        4 - caminho para a imagem
+        5 - quando criado
+        6 - nome de usuário
+        """
+        
         query = """
         SELECT
             p.uuid,
             p.nome,
             p.preco,
             p.quant,
+            p.img_path,
             p.create_at,
             u.user_name
         FROM produto AS p
@@ -108,6 +152,7 @@ class ProductRepo:
         params.extend([limit, offset])
         
         return self.db.fetchall(query, tuple(params))
+
 
     def items_count(self) -> int:
         query = "SELECT COUNT(uuid) FROM produto"

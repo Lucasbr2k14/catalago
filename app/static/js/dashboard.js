@@ -6,6 +6,13 @@ function $(a){
     return document.querySelector(a);
 }
 
+
+function data(gmt) {
+    const data = new Date(gmt);
+    return data.toLocaleDateString("pt-BR");
+}
+
+
 class Dashboard {
     constructor () {
         this.prod_div = $("#produtos");
@@ -15,7 +22,7 @@ class Dashboard {
         this.add_event();
         this.start_dash();
 
-        this.product_images = {};
+        this.product_by_name = {};
     }
 
 
@@ -34,6 +41,73 @@ class Dashboard {
         this.add_prod_buton.addEventListener("click", (e) => {
             this.add_prod_menu();
         });
+    }
+
+    
+    // Menus com os dialog
+    
+    async prod_menu(uuid) {
+        const prod = await this.get_product(uuid);
+
+        const title   = this.dialog.querySelector("h2");
+        const content = this.dialog.querySelector("#dia-content");
+        const buttons = this.dialog.querySelector("#dia-buttons");
+        const ok = document.querySelector("#ok");
+        const cancelar = document.querySelector("#cancelar");
+        
+
+        title.innerText = prod.name;
+
+        console.log(prod);
+        
+        this.dialog.showModal();
+
+        content.innerHTML = `
+        <div id="div-prod-menu">
+
+            <div id="div-prod-menu-image">
+                <img id="prod-menu-image" src="${prod.image_url}"></img>
+            </div>
+            <div id="div-prod-menu-info">
+                <p>
+                    <span>
+                        Nome: 
+                    </span>
+                    ${prod.name}
+                </p>
+                <p>
+                    <span>
+                        Quantidade:  
+                    </span>
+                    ${prod.quantidade}
+                </p>
+                <p>
+                    <span>
+                        Preço: 
+                    </span>
+                    R$${prod.preco.replace(".", ",")}
+                </p>
+                <p>
+                    <span>
+                        Criado em: 
+                    </span>
+                    ${data(prod.create_at)}
+                </p>
+            </div>
+        </div>
+        
+        `
+
+        
+        
+        ok.addEventListener("click", () => {
+            this.add_prod();
+        });
+
+        cancelar.addEventListener("click", () => {
+            this.dialog.close();
+        });
+
     }
 
 
@@ -68,13 +142,7 @@ class Dashboard {
             </label>
         `
 
-        const btns = `
-            <button id="ok">ok</button>
-            <button id="cancelar">cancelar</button>
-        `;
-
         content.innerHTML = inputs;
-        buttons.innerHTML = btns;
 
         this.dialog.showModal();
 
@@ -201,7 +269,10 @@ class Dashboard {
         for (let i in products) {
             const p = products[i];
 
-            this.product_images[p.name] = p.image_path; 
+            this.product_by_name[p.name] = {
+                img: p.image_path,
+                uuid: p.uuid
+            } 
             
             tbody += `
             <tr>
@@ -222,32 +293,36 @@ class Dashboard {
         `;
 
         this.prod_div.innerHTML = table;
-        this.set_preview();
+        this.set_events();
     }
     
 
-    set_preview() {
+    set_events() {
         const name = document.querySelectorAll('.p-name');
         const preview_img = document.querySelector("#preview img");
         const preview = document.querySelector("#preview");
 
         name.forEach( (element) => {
             element.addEventListener("mouseenter", (e) => {
-                preview_img.setAttribute("src",  this.product_images[element.innerText]);
+                preview_img.setAttribute("src",  this.product_by_name[element.innerText].img);
                 preview.style.display = 'block';
             });
         
             element.addEventListener("mouseleave", (e) => {
                 preview.style.display = 'none';
+                preview_img.setAttribute("src", "");
             });
         
             element.addEventListener("mousemove", (e) => {
                 preview.style.left = `${e.clientX + 20}px`
                 preview.style.top  = `${e.clientY + 20}px` 
-            })
+            });
         
-        });
+            element.addEventListener("click", (e) => {
+                this.prod_menu(this.product_by_name[element.innerText].uuid);
+            });
 
+        });
         
     }
 
@@ -270,9 +345,21 @@ class Dashboard {
         return json;
     }
 
+
+    async get_product(uuid) {
+        let url = `/api/product/${uuid}`
+
+        try{
+            const prod = await fetch(url);
+            if (prod.status == 200){
+                return prod.json();
+            }
+        } catch(e) {
+            return null
+        }
+    }
+
 }
 
 const dash = new Dashboard();
-
-
 
